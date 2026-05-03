@@ -4,6 +4,17 @@ Public research reports served with GitHub Pages:
 
 https://clawdude.github.io/reports/
 
+## Structure
+
+- `index.html` is generated. Do not edit it by hand.
+- New reports live at `reports/YYYY/MM/<slug>/index.html`.
+- Report-local assets/evidence can live beside that report's `index.html`.
+- Regenerate the static index after adding or moving reports:
+
+```sh
+python3 reports/build_index.py
+```
+
 ## Request a new report
 
 Open a GitHub issue in this repo with:
