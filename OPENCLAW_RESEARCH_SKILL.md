@@ -196,6 +196,15 @@ After saving in `/Users/macmini/reports/`:
 
 In webchat, reply with the report path and static index/link. Do not send Discord messages unless explicitly requested or the current conversation is Discord and a response is needed.
 
+### Usage reporting in GitHub comments
+
+When posting a ready/updated/blocked GitHub issue comment from automation:
+- Call `session_status(sessionKey="current")` immediately before composing the comment when the tool is available.
+- Include a `Usage` line with the concrete fields shown by status, for example: `Usage: model openai-codex/gpt-5.5; 42k input / 6k output tokens; cache 80% hit; run 18m.`
+- If the status output lacks exact money cost, do not write a generic infrastructure disclaimer. Write `Cost: not exposed by session status`.
+- If subagents were used, include their visible token/cost/status summaries when available. If not visible, write `Subagent usage: not exposed`.
+- Avoid the bare phrase `Usage: unavailable from this run` unless `session_status` itself failed.
+
 ## Report writing rules
 
 - Lead with the answer, not background.
