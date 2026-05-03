@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web Application Stack 2026 — Research Report</title>
+  <style>
+    :root{--bg:#0b1020;--panel:#121a31;--panel2:#17213d;--text:#edf2ff;--muted:#aab6d3;--line:#2a385e;--accent:#7dd3fc;--good:#86efac;--warn:#fde68a;--bad:#fca5a5;--chip:#1f2a44;--max:1180px}
+    *{box-sizing:border-box} body{margin:0;font:16px/1.58 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#08101f 0%,#0b1020 55%,#111827 100%);color:var(--text)}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline} .wrap{max-width:var(--max);margin:auto;padding:28px 18px 64px}
+    header{padding:34px 0 22px;border-bottom:1px solid var(--line);margin-bottom:26px} h1{font-size:clamp(2rem,5vw,4rem);line-height:1.03;margin:0 0 14px;letter-spacing:-.04em} h2{font-size:clamp(1.45rem,3vw,2.1rem);margin:42px 0 14px;letter-spacing:-.02em} h3{font-size:1.15rem;margin:24px 0 8px} p{margin:0 0 14px}.lede{font-size:1.15rem;color:#d8e2ff;max-width:880px}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.pill{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:#dce7ff;font-size:.9rem}
+    .grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:820px){.g2,.g3{grid-template-columns:1fr}}
+    .card{background:rgba(18,26,49,.88);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.18)}.card h3{margin-top:0}.card strong{color:white}.muted{color:var(--muted)}.callout{border-left:4px solid var(--accent);background:rgba(125,211,252,.08);padding:14px 16px;border-radius:12px;margin:16px 0}.warn{border-left-color:var(--warn);background:rgba(253,230,138,.09)}.good{border-left-color:var(--good);background:rgba(134,239,172,.08)}
+    ul,ol{margin:8px 0 16px;padding-left:22px} li{margin:5px 0} table{width:100%;border-collapse:collapse;margin:14px 0 24px;background:rgba(18,26,49,.8);border-radius:14px;overflow:hidden} th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top} th{background:#1b2540;text-align:left;color:#fff}.score{font-weight:700;color:var(--good)}.maybe{color:var(--warn);font-weight:700}.avoid{color:var(--bad);font-weight:700}.small{font-size:.92rem}.toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.toc a{background:#13203a;border:1px solid var(--line);padding:8px 10px;border-radius:999px}.tag{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#9fb7ff}.stack{border-top:3px solid var(--accent)} code{background:#17213d;border:1px solid var(--line);padding:.12em .35em;border-radius:6px} footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted)}
+  </style>
+</head>
+<body><div class="wrap">
+<header>
+  <div class="tag">Public GitHub Pages Research Report</div>
+  <h1>Web Application Stack 2026</h1>
+  <p class="lede">A practical, opinionated stack map for building a serious modern web application: frontend, backend services, data, auth, queues, caches, CI/CD, IaC, deployment, observability, security, testing, and operations. Recommendations are based on performance, developer experience, documentation, simplicity, composability, and likely 2026 trajectory—not popularity alone.</p>
+  <div class="meta"><span class="pill">Date: 2026-05-03</span><span class="pill">Topic: Web application stack</span><span class="pill">Objective: shortlist high-quality 2026 choices</span><span class="pill">Scope: 3–5 options per area</span></div>
+</header>
+
+<nav class="toc"><a href="#summary">Summary</a><a href="#stacks">Recommended stacks</a><a href="#criteria">Criteria</a><a href="#areas">Area-by-area choices</a><a href="#deploy">Deployment</a><a href="#roadmap">Adoption roadmap</a><a href="#rejected">What not to pick by default</a><a href="#sources">Sources</a></nav>
+
+<section id="summary">
+<h2>Executive summary</h2>
+<div class="callout good"><strong>Default recommendation:</strong> build a TypeScript-first product platform with <strong>Postgres + Drizzle</strong>, <strong>Better Auth or managed Clerk/Zitadel</strong>, <strong>Hono/Fastify service boundaries</strong>, <strong>Inngest/Trigger.dev first, Temporal when workflows become business-critical</strong>, <strong>OpenTelemetry + Sentry + PostHog</strong>, and deploy initially on <strong>Cloudflare/Vercel/Railway/Render</strong> depending on runtime needs. Keep the first version boring in architecture, not boring in tooling.</div>
+<div class="grid g3">
+  <div class="card"><h3>Best all-around app path</h3><p><strong>TanStack Start or SvelteKit</strong> for the app shell, <strong>Hono</strong> for small APIs, <strong>Drizzle + Neon/Supabase Postgres</strong>, <strong>Better Auth</strong>, <strong>Inngest</strong>, <strong>Upstash Redis/QStash</strong>, <strong>Sentry + OTel</strong>.</p><p class="muted">Why: high type-safety, low ceremony, modern docs, easier code for AI-assisted maintenance.</p></div>
+  <div class="card"><h3>Best durable workflow path</h3><p><strong>Next.js or TanStack Start</strong>, <strong>Fastify/Hono services</strong>, <strong>Temporal</strong>, <strong>Postgres</strong>, <strong>Dragonfly/Valkey</strong>, deploy on <strong>Fly.io, Render, or AWS via SST/Pulumi</strong>.</p><p class="muted">Why: explicit service/runtime control and strong reliability for payments, onboarding, and long-running jobs.</p></div>
+  <div class="card"><h3>Best content/edge path</h3><p><strong>Astro</strong> for marketing/content plus <strong>SvelteKit/TanStack Start</strong> for app surfaces, <strong>Cloudflare Workers</strong>, <strong>KV/R2/Durable Objects</strong>, <strong>Neon/Supabase</strong> for relational data.</p><p class="muted">Why: excellent Core Web Vitals and globally low-latency reads without overbuilding infra.</p></div>
+</div>
+<p>The strongest pattern for 2026 is not “one mega framework does everything.” It is a <strong>small set of coherent defaults</strong>: one app framework, one database, one auth strategy, one workflow/queue layer, one observability path, one deployment model, and clean escape hatches.</p>
+</section>
+
+<section id="criteria">
+<h2>Evaluation criteria</h2>
+<table><thead><tr><th>Criterion</th><th>What it means here</th><th>Weight</th></tr></thead><tbody>
+<tr><td>Performance</td><td>Runtime overhead, cold starts, page load, data access, background throughput.</td><td class="score">High</td></tr>
+<tr><td>Developer experience</td><td>Type-safety, local dev, migrations, debugging, AI-agent readability, simple mental model.</td><td class="score">High</td></tr>
+<tr><td>Documentation quality</td><td>Current docs, examples, llms.txt/AI docs, migration guides, pricing clarity.</td><td class="score">High</td></tr>
+<tr><td>Simplicity</td><td>Few moving parts, explicit code, minimal lock-in, obvious production path.</td><td class="score">High</td></tr>
+<tr><td>Trajectory</td><td>Actively developed now and likely more stable by 2026 production.</td><td class="score">High</td></tr>
+<tr><td>Popularity</td><td>Used only as a weak risk signal; not a deciding factor.</td><td class="maybe">Low</td></tr>
+</tbody></table>
+</section>
+
+<section id="stacks">
+<h2>Coherent stack options</h2>
+<div class="grid g3">
+<div class="card stack"><h3>1. Lean TypeScript Product Stack</h3><p><strong>Use for:</strong> SaaS, dashboards, marketplaces, internal tools, AI apps, products that need velocity and good UX.</p><ul><li>App: TanStack Start <em>or</em> SvelteKit</li><li>API: Hono for edge/light services; Fastify for Node services</li><li>DB: Neon/Supabase Postgres + Drizzle</li><li>Auth: Better Auth if owning auth; Clerk/Zitadel if managed identity matters</li><li>Jobs: Inngest/Trigger.dev; Temporal later for critical workflows</li><li>Deploy: Cloudflare Workers for edge services; Railway/Render/Fly for containers; Vercel if using Next heavily</li></ul><p class="score">Recommendation: start here unless you already know you need enterprise workflow infrastructure.</p></div>
+<div class="card stack"><h3>2. Reliability-first Services Stack</h3><p><strong>Use for:</strong> payments, logistics, health/finance-like reliability, multi-step business processes, high background workload.</p><ul><li>App: Next.js, TanStack Start, or SvelteKit</li><li>Services: Fastify for long-running Node services; Hono for edge/API gateway</li><li>DB: Postgres + Drizzle or Prisma</li><li>Workflow: Temporal</li><li>Cache/queue substrate: Dragonfly, Valkey, or managed Redis</li><li>Deploy: Fly.io/Render/AWS via SST or Pulumi</li></ul><p class="muted">More moving parts, but better when “never lose this process” is a real requirement.</p></div>
+<div class="card stack"><h3>3. Edge + Content Performance Stack</h3><p><strong>Use for:</strong> public sites, docs, commerce frontends, global read-heavy apps, marketing-heavy products.</p><ul><li>Content: Astro</li><li>Interactive app: SvelteKit or TanStack Start</li><li>Edge runtime: Cloudflare Workers</li><li>Storage: R2 for objects, KV for read-heavy config/cache, Durable Objects for coordination</li><li>DB: Neon/Supabase Postgres; Turso only for many-local-db or SQLite-first cases</li></ul><p class="muted">Avoid forcing everything into edge if you need heavy Node APIs, long jobs, or complex TCP dependencies.</p></div>
+</div>
+</section>
+
+<section id="areas">
+<h2>Area-by-area recommendations</h2>
+<h3>Frontend/app frameworks</h3>
+<table><thead><tr><th>Pick</th><th>Best fit</th><th>Why it belongs on the shortlist</th><th>Cautions</th></tr></thead><tbody>
+<tr><td><strong>TanStack Start</strong></td><td>React apps where type-safe routing/data APIs matter.</td><td>Full-document SSR, streaming, server functions/RPC, Vite, deploy-anywhere model, and TanStack Router’s type-safety.</td><td>Still newer/RC relative to mature frameworks; validate ecosystem gaps before committing.</td></tr>
+<tr><td><strong>SvelteKit</strong></td><td>Performance-focused apps with simple component code.</td><td>Compiler-driven UI, SSR/CSR/prerender modes, image optimization, service workers, strong docs.</td><td>Smaller ecosystem than React; hiring/library choices may be narrower.</td></tr>
+<tr><td><strong>Next.js</strong></td><td>React teams wanting integrated full-stack features and Vercel alignment.</td><td>Full-stack React framework, automatic tooling, App Router, React Server Components.</td><td>Complexity and magic can rise quickly; avoid if simplicity is more important than ecosystem.</td></tr>
+<tr><td><strong>Astro</strong></td><td>Marketing/content/docs/e-commerce shells.</td><td>Server-first HTML, islands, zero unnecessary JS, supports major UI frameworks.</td><td>Not the first choice for a deeply stateful app dashboard.</td></tr>
+<tr><td><strong>Qwik</strong></td><td>Experimental performance-max apps.</td><td>Resumability model and tiny boot JS are compelling for large interactive pages.</td><td>Higher ecosystem risk; choose only if its performance model is central to the product.</td></tr>
+</tbody></table>
+
+<h3>Backend/API frameworks and contracts</h3>
+<table><thead><tr><th>Pick</th><th>Best fit</th><th>Notes</th></tr></thead><tbody>
+<tr><td><strong>Hono</strong></td><td>Edge APIs, small services, middleware, API gateway.</td><td>Small, Web Standards-based, zero dependencies, multi-runtime across Cloudflare, Fastly, Deno, Bun, Vercel, Lambda, Node.</td></tr>
+<tr><td><strong>Fastify</strong></td><td>Production Node services needing plugins, throughput, LTS posture.</td><td>Strong reference docs/guides and mature server ergonomics without Express-era baggage.</td></tr>
+<tr><td><strong>Elysia</strong></td><td>Bun-first APIs with schema/type integration.</td><td>Excellent type inference and schema-as-source-of-truth; higher runtime bet on Bun.</td></tr>
+<tr><td><strong>tRPC</strong></td><td>Full-stack TypeScript internal APIs.</td><td>No codegen, static types, batching/subscriptions. Great for same-repo apps; less ideal for public APIs.</td></tr>
+<tr><td><strong>Effect</strong></td><td>Complex TS services needing typed errors, concurrency, resource safety.</td><td>Powerful, but introduces a distinct programming model. Adopt deliberately, not casually.</td></tr>
+</tbody></table>
+
+<h3>Data layer: database, ORM, migrations</h3>
+<table><thead><tr><th>Pick</th><th>Best fit</th><th>Why</th><th>Caution</th></tr></thead><tbody>
+<tr><td><strong>Postgres</strong></td><td>Default relational database.</td><td>Best general-purpose center for product data, analytics extensions, JSON, search, transactions.</td><td>Needs schema discipline and indexing habits.</td></tr>
+<tr><td><strong>Neon</strong></td><td>Serverless Postgres, branching workflows, preview DBs.</td><td>Autoscaling, branching, instant restore, framework/ORM guides.</td><td>Understand pooling/serverless connection behavior.</td></tr>
+<tr><td><strong>Supabase</strong></td><td>Postgres plus auth/storage/realtime/edge functions bundle.</td><td>Useful if you want integrated platform primitives around Postgres.</td><td>Can become a platform commitment; decide what you will use vs bypass.</td></tr>
+<tr><td><strong>Drizzle</strong></td><td>TypeScript schema + SQL-like queries.</td><td>Lightweight, performant, serverless-ready, embraces SQL, opt-in tooling.</td><td>Less “batteries-included data platform” than Prisma.</td></tr>
+<tr><td><strong>Prisma</strong></td><td>Teams valuing polished ORM workflow and studio.</td><td>Type-safe access across Postgres/MySQL/SQLite, smooth Node/Bun/Deno story, managed Postgres option.</td><td>Query abstraction and generated client can be heavier than Drizzle.</td></tr>
+</tbody></table>
+
+<h3>Authentication and authorization</h3>
+<table><thead><tr><th>Pick</th><th>Use when</th><th>Reason</th></tr></thead><tbody>
+<tr><td><strong>Better Auth</strong></td><td>You want auth in your codebase.</td><td>Framework-agnostic TS auth with plugins for 2FA, passkeys, multi-tenancy, multi-session, SSO/IDP; strong 2026 trajectory.</td></tr>
+<tr><td><strong>Clerk</strong></td><td>You want managed UX fast.</td><td>Prebuilt UI components, user management, organizations, SDKs; good for shipping quickly.</td></tr>
+<tr><td><strong>Zitadel</strong></td><td>B2B/enterprise identity with cloud or self-host.</td><td>OIDC/SAML/OAuth2, passkeys/MFA, multi-tenancy, audit trail, cloud/self-host options.</td></tr>
+<tr><td><strong>Auth.js</strong></td><td>Simple OAuth/session needs across frameworks.</td><td>Free/open source, broad examples for Next/SvelteKit/Express/Qwik.</td></tr>
+<tr><td><strong>Keycloak</strong></td><td>Enterprise self-hosted IAM.</td><td>Very capable and battle-tested, but operationally heavier; avoid unless you need that control.</td></tr>
+</tbody></table>
+
+<h3>Queues, jobs, workflows, scheduling</h3>
+<table><thead><tr><th>Pick</th><th>Best fit</th><th>Decision rule</th></tr></thead><tbody>
+<tr><td><strong>Inngest</strong></td><td>Event-driven durable functions without managing queues/state.</td><td>Start here for most TS apps: steps, retries, concurrency, throttling, scheduling, observability handled.</td></tr>
+<tr><td><strong>Trigger.dev</strong></td><td>Developer-friendly background tasks and AI/long-running jobs.</td><td>Great DX and examples; compare pricing and self-host posture for production.</td></tr>
+<tr><td><strong>Temporal</strong></td><td>Mission-critical long-running workflows.</td><td>Use when replay/durability/business process correctness beats simplicity.</td></tr>
+<tr><td><strong>BullMQ</strong></td><td>Redis-backed queue workers you operate.</td><td>Good if you already run Redis/Valkey and want control; you own worker ops.</td></tr>
+<tr><td><strong>Upstash QStash/Workflow</strong></td><td>Serverless HTTP delivery, retries, scheduling.</td><td>Simple for webhook-ish jobs and platform timeout escape hatches.</td></tr>
+</tbody></table>
+
+<h3>Caches and ephemeral state</h3>
+<table><thead><tr><th>Pick</th><th>Best fit</th><th>Notes</th></tr></thead><tbody>
+<tr><td><strong>Upstash Redis</strong></td><td>Managed/serverless Redis-compatible cache.</td><td>Good global low-ops default for rate limits, sessions, queues, small hot data.</td></tr>
+<tr><td><strong>Dragonfly</strong></td><td>High-throughput Redis-compatible in-memory datastore.</td><td>Claims large single-instance performance gains; strong if self-hosting/cache intensity matters.</td></tr>
+<tr><td><strong>Valkey</strong></td><td>Open Redis-compatible ecosystem path.</td><td>Good OSS-aligned default where Redis licensing/ecosystem direction matters.</td></tr>
+<tr><td><strong>Cloudflare KV</strong></td><td>Global low-latency read-heavy key-value data.</td><td>Excellent for config/cache at edge; not for strongly consistent transactional state.</td></tr>
+</tbody></table>
+
+<h3>UI, styling, forms, client state</h3>
+<table><thead><tr><th>Area</th><th>Shortlist</th><th>Recommendation</th></tr></thead><tbody>
+<tr><td>Component system</td><td>shadcn/ui, Radix Primitives, Ark UI, Tamagui</td><td>React web: shadcn/ui + Radix. Cross-platform: Tamagui. Multi-framework/headless: Ark UI.</td></tr>
+<tr><td>Styling</td><td>Tailwind CSS, Panda CSS, vanilla-extract</td><td>Tailwind remains the pragmatic default: fast, flexible, zero-runtime, Vite integration.</td></tr>
+<tr><td>Forms/validation</td><td>React Hook Form, TanStack Form, Zod/Valibot/ArkType</td><td>Use schema validation shared at boundaries. Prefer typed schemas over ad hoc validators.</td></tr>
+<tr><td>Data fetching/state</td><td>TanStack Query, framework loaders/server functions, Zustand/Jotai</td><td>Prefer server data primitives first; add TanStack Query for client cache complexity.</td></tr>
+</tbody></table>
+
+<h3>Observability, product analytics, logging</h3>
+<table><thead><tr><th>Pick</th><th>Role</th><th>Why</th></tr></thead><tbody>
+<tr><td><strong>OpenTelemetry</strong></td><td>Instrumentation standard.</td><td>Vendor-neutral traces, metrics, logs; broad vendor/library adoption.</td></tr>
+<tr><td><strong>Sentry</strong></td><td>Developer-first errors/perf/replays/profiling/crons/logs.</td><td>Best single starting point for app-level issue discovery.</td></tr>
+<tr><td><strong>PostHog</strong></td><td>Product analytics and experimentation.</td><td>Complements infra observability with user behavior, funnels, feature flags.</td></tr>
+<tr><td><strong>Grafana Cloud/OSS</strong></td><td>Metrics/logs/traces dashboards.</td><td>Strong when you own infrastructure or want a broad observability platform.</td></tr>
+<tr><td><strong>Honeycomb</strong></td><td>High-cardinality debugging.</td><td>Excellent for complex distributed systems; pair with OTel.</td></tr>
+</tbody></table>
+
+<h3>CI/CD, monorepo, builds, IaC</h3>
+<table><thead><tr><th>Area</th><th>Shortlist</th><th>Recommendation</th></tr></thead><tbody>
+<tr><td>CI/CD</td><td>GitHub Actions, Depot CI, platform deploy previews</td><td>Use GitHub Actions first; add Depot for faster containers/runners when CI becomes a bottleneck.</td></tr>
+<tr><td>Monorepo/build</td><td>Turborepo, Nx, pnpm/Bun workspaces</td><td>Start with pnpm/Bun workspaces + Turborepo only when caching/pipelines help.</td></tr>
+<tr><td>IaC</td><td>SST, Pulumi, OpenTofu</td><td>SST for full-stack AWS/app infra in TypeScript; Pulumi for multi-cloud code-first IaC; OpenTofu for declarative Terraform-compatible infra.</td></tr>
+<tr><td>Secrets/config</td><td>1Password/Infisical/Doppler, platform secrets, Pulumi ESC</td><td>Pick one source of truth and enforce environment separation early.</td></tr>
+</tbody></table>
+
+<h3>Storage, search, realtime, payments, email</h3>
+<table><thead><tr><th>Area</th><th>3–5 good choices</th><th>Default advice</th></tr></thead><tbody>
+<tr><td>Object storage/CDN</td><td>Cloudflare R2, S3, Supabase Storage, Tigris</td><td>Use R2 if already on Cloudflare; S3 for AWS-heavy orgs.</td></tr>
+<tr><td>Search</td><td>Meilisearch, Typesense, Postgres full-text/pgvector, Algolia</td><td>Start with Postgres for simple search; Meilisearch/Typesense for self-hosted UX; Algolia for managed premium search.</td></tr>
+<tr><td>Realtime</td><td>Supabase Realtime, Ably, Pusher, PartyKit/Cloudflare Durable Objects</td><td>Avoid custom WebSocket infra until product demand is clear.</td></tr>
+<tr><td>Payments/billing</td><td>Stripe, Lemon Squeezy, Paddle</td><td>Stripe for flexible SaaS; Paddle/Lemon Squeezy if merchant-of-record simplicity matters.</td></tr>
+<tr><td>Email</td><td>Resend, Postmark, AWS SES, Loops</td><td>Use Resend/Postmark for transactional simplicity; SES when volume/cost dominates.</td></tr>
+</tbody></table>
+</section>
+
+<section id="deploy">
+<h2>Deployment and hosting choices</h2>
+<table><thead><tr><th>Platform</th><th>Strength</th><th>Pricing/complexity signal</th><th>Best fit</th></tr></thead><tbody>
+<tr><td><strong>Cloudflare Workers</strong></td><td>Global edge, low ops, no infra, bandwidth-friendly.</td><td>Free plan; paid minimum around $5/month; no additional data transfer charges in Workers pricing docs.</td><td>Hono APIs, edge rendering, KV/R2/Durable Object apps.</td></tr>
+<tr><td><strong>Vercel</strong></td><td>Best Next.js path, previews, CDN, integrated marketplace.</td><td>Hobby free; Pro around $20/user/month plus usage credits/overages.</td><td>Next.js teams, frontend-heavy products, preview-heavy workflow.</td></tr>
+<tr><td><strong>Railway</strong></td><td>Simple app+service+DB deployment with usage-based model.</td><td>Plans include free/trial/hobby/pro; base subscription goes toward usage.</td><td>Early product with multiple services but no desire for cloud console complexity.</td></tr>
+<tr><td><strong>Render</strong></td><td>Managed web services, background workers, DBs, previews.</td><td>Hobby free; Pro listed around $25/user/month; usage-based services.</td><td>Teams wanting Heroku-like simplicity with production posture.</td></tr>
+<tr><td><strong>Fly.io</strong></td><td>Containers close to users, Machines, more infra control.</td><td>Usage-based per provisioned resources; requires credit card.</td><td>Long-running services, global apps, WebSockets, custom runtimes.</td></tr>
+<tr><td><strong>AWS via SST/Pulumi</strong></td><td>Most control and mature primitives.</td><td>Higher complexity; can be cost-efficient at scale if operated well.</td><td>Regulated, enterprise, or infra-heavy products.</td></tr>
+</tbody></table>
+<div class="callout warn"><strong>Deployment rule:</strong> do not choose Kubernetes for v1 unless the team already has platform engineering capacity. For most 2026 web apps, managed serverless/container platforms plus IaC are enough.</div>
+</section>
+
+<section id="roadmap">
+<h2>Recommended adoption roadmap</h2>
+<ol>
+<li><strong>Prototype:</strong> one monorepo, one app framework, Postgres, Drizzle, Better Auth/Clerk, Sentry, GitHub Actions, platform previews.</li>
+<li><strong>First production:</strong> add migrations discipline, rate limits, background jobs via Inngest/Trigger/QStash, structured logs, backups, environment isolation, incident checklist.</li>
+<li><strong>Scale-up:</strong> introduce service boundaries only where needed; add OTel tracing, queue/workflow SLAs, cache policy, cost alerts, load tests.</li>
+<li><strong>Reliability hardening:</strong> Temporal for critical business workflows, IaC for all infra, restore drills, SLOs, deploy rollback drills, security review.</li>
+<li><strong>Enterprise/B2B:</strong> SSO/SAML, audit logs, org roles, data retention controls, SOC2-ready logging, regional data strategy.</li>
+</ol>
+</section>
+
+<section id="rejected">
+<h2>What not to pick by default</h2>
+<table><thead><tr><th>Option</th><th>Reason not default</th><th>Still valid when…</th></tr></thead><tbody>
+<tr><td>Express</td><td>Not “bad,” but newer APIs like Hono/Fastify provide better TypeScript/runtime/DX defaults.</td><td>Existing codebase or middleware dependency requires it.</td></tr>
+<tr><td>MongoDB as default primary DB</td><td>Most product apps benefit from relational integrity and Postgres flexibility.</td><td>Document shape, scale model, or team expertise clearly points there.</td></tr>
+<tr><td>Kubernetes for v1</td><td>Operational overhead dominates before product/traffic needs justify it.</td><td>You already have platform engineers and multi-service ops requirements.</td></tr>
+<tr><td>Self-hosted auth early</td><td>Security/compliance burden is easy to underestimate.</td><td>You need strict control, on-prem, or enterprise identity requirements.</td></tr>
+<tr><td>Microservices from day one</td><td>Distributed systems tax slows product learning.</td><td>Different scaling, reliability, or ownership boundaries are already proven.</td></tr>
+<tr><td>GraphQL by default</td><td>Added schema/resolver/client complexity is often unnecessary for small/medium teams.</td><td>Multiple clients, complex graphs, public API, or federation justify it.</td></tr>
+</tbody></table>
+</section>
+
+<section id="methodology">
+<h2>Methodology and caveats</h2>
+<p>Source scope emphasized primary documentation and pricing pages for current product positioning, capabilities, and developer experience signals. Community sentiment and GitHub metadata were considered only indirectly; this report does not claim a quantitative benchmark or exhaustive market ranking.</p>
+<ul><li><strong>Confidence high</strong> for broad area recommendations: Postgres, typed TS stack, OTel, managed deployment, durable workflow categories.</li><li><strong>Confidence medium</strong> for newer framework trajectory: TanStack Start, Elysia, Better Auth, Qwik, Turso. They are promising but should be re-evaluated near implementation.</li><li><strong>Pricing caveat:</strong> platform prices and included quotas change often. Treat pricing notes as directional and verify before purchase.</li><li><strong>Project-specific caveat:</strong> the best stack changes if the app is B2B enterprise, consumer social, realtime collaboration, AI-agent infrastructure, healthcare/finance, or extreme global latency.</li></ul>
+</section>
+
+<section id="sources">
+<h2>Primary sources consulted</h2>
+<div class="grid g2 small">
+<div class="card"><h3>Frameworks and APIs</h3><ul><li><a href="https://nextjs.org/docs">Next.js Docs</a></li><li><a href="https://tanstack.com/start/latest">TanStack Start</a></li><li><a href="https://svelte.dev/docs/kit/introduction">SvelteKit Docs</a></li><li><a href="https://astro.build/">Astro</a></li><li><a href="https://qwik.dev/docs/">Qwik Docs</a></li><li><a href="https://hono.dev/docs/">Hono Docs</a></li><li><a href="https://fastify.dev/docs/latest/">Fastify Docs</a></li><li><a href="https://elysiajs.com/">Elysia</a></li><li><a href="https://trpc.io/docs">tRPC Docs</a></li><li><a href="https://effect.website/docs/">Effect Docs</a></li></ul></div>
+<div class="card"><h3>Data and auth</h3><ul><li><a href="https://orm.drizzle.team/docs/overview">Drizzle ORM</a></li><li><a href="https://www.prisma.io/docs">Prisma Docs</a></li><li><a href="https://neon.com/docs/introduction">Neon Docs</a></li><li><a href="https://supabase.com/docs">Supabase Docs</a></li><li><a href="https://turso.tech/">Turso</a></li><li><a href="https://better-auth.com/docs/introduction">Better Auth</a></li><li><a href="https://authjs.dev/">Auth.js</a></li><li><a href="https://clerk.com/docs">Clerk Docs</a></li><li><a href="https://zitadel.com/docs">Zitadel Docs</a></li><li><a href="https://www.keycloak.org/documentation">Keycloak Docs</a></li></ul></div>
+<div class="card"><h3>Jobs, cache, observability</h3><ul><li><a href="https://docs.temporal.io/">Temporal Docs</a></li><li><a href="https://www.inngest.com/docs">Inngest Docs</a></li><li><a href="https://trigger.dev/docs">Trigger.dev Docs</a></li><li><a href="https://docs.bullmq.io/">BullMQ Docs</a></li><li><a href="https://upstash.com/docs/qstash/overall/getstarted">Upstash QStash</a></li><li><a href="https://www.dragonflydb.io/docs">Dragonfly Docs</a></li><li><a href="https://upstash.com/docs/redis">Upstash Redis</a></li><li><a href="https://developers.cloudflare.com/kv/">Cloudflare KV</a></li><li><a href="https://opentelemetry.io/docs/">OpenTelemetry</a></li><li><a href="https://docs.sentry.io/">Sentry Docs</a></li><li><a href="https://grafana.com/docs/">Grafana Docs</a></li><li><a href="https://posthog.com/docs">PostHog Docs</a></li><li><a href="https://docs.honeycomb.io/">Honeycomb Docs</a></li></ul></div>
+<div class="card"><h3>Deployment, IaC, UI</h3><ul><li><a href="https://developers.cloudflare.com/workers/">Cloudflare Workers</a> and <a href="https://developers.cloudflare.com/workers/platform/pricing/">pricing</a></li><li><a href="https://vercel.com/docs">Vercel Docs</a> and <a href="https://vercel.com/pricing">pricing</a></li><li><a href="https://docs.railway.com/">Railway Docs</a> and <a href="https://docs.railway.com/pricing/plans">pricing</a></li><li><a href="https://render.com/docs">Render Docs</a> and <a href="https://render.com/pricing">pricing</a></li><li><a href="https://fly.io/docs/">Fly.io Docs</a> and <a href="https://fly.io/docs/about/pricing/">pricing</a></li><li><a href="https://sst.dev/docs/">SST Docs</a></li><li><a href="https://www.pulumi.com/docs/">Pulumi Docs</a></li><li><a href="https://opentofu.org/docs/">OpenTofu Docs</a></li><li><a href="https://docs.github.com/en/actions">GitHub Actions Docs</a></li><li><a href="https://depot.dev/docs">Depot Docs</a></li><li><a href="https://ui.shadcn.com/docs">shadcn/ui</a></li><li><a href="https://www.radix-ui.com/primitives/docs/overview/introduction">Radix Primitives</a></li><li><a href="https://tailwindcss.com/docs">Tailwind CSS Docs</a></li><li><a href="https://tamagui.dev/docs/intro/introduction">Tamagui Docs</a></li></ul></div>
+</div>
+</section>
+<footer>Report generated for GitHub issue clawdude/reports#2. Filename: <code>web-application-stack-2026-research-report.html</code>.</footer>
+</div></body></html>
