@@ -7,6 +7,7 @@ https://clawdude.github.io/reports/
 ## Structure
 
 - `index.html` is generated. Do not edit it by hand.
+- `OPENCLAW_RESEARCH_SKILL.md` is the repo-local instruction file used by the hourly report automation.
 - New reports live at `reports/YYYY/MM/<slug>/index.html`.
 - Report-local assets/evidence can live beside that report's `index.html`.
 - Regenerate the static index after adding or moving reports:
