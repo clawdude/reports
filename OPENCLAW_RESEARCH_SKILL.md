@@ -133,7 +133,23 @@ Directly verify claims that materially affect the conclusion, such as:
 
 Use direct source checks where practical. Label anything not verified.
 
-### 7. Build the HTML report
+### 7. Write research files before HTML
+
+Before writing the final HTML, create a report folder and save the research work products there. These files are the audit trail and should be committed with the report.
+
+Required files for normal/deep reports:
+- `research-plan.md`: objective, scope, inclusion/exclusion criteria, subagent tracks, verification strategy.
+- `source-ledger.json`: structured list of sources with URL, title, source type, date/update date if known, access date, credibility, relevance, supported claims, and caveats.
+- `subagent-notes.md`: concise consolidated notes from each subagent, not raw transcript dumps.
+- `synthesis.md`: evidence-backed findings, contradictions, rejected/weak sources, unknowns that matter, and final recommendation.
+
+Optional files when useful:
+- `evidence.json`: selected quotes/extracts/provenance used in the report.
+- `assets/`: screenshots, images, charts, or downloaded supporting files that are safe to publish.
+
+The HTML report must be derived from these research files. Do not generate a polished report directly from memory/subagent summaries without first writing the intermediate files.
+
+### 8. Build the HTML report
 
 Create a polished standalone HTML file in the reports location.
 
@@ -167,7 +183,7 @@ Style requirements:
 - Clickable links.
 - Use real HTML tables/cards, not markdown tables inside HTML.
 
-### 8. Build the static index and report completion
+### 9. Build the static index and report completion
 
 GitHub Pages is static: Python server code will not run there. Treat `server.py` only as an optional local preview helper.
 
