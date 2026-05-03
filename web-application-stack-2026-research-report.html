@@ -10,7 +10,7 @@
     a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline} .wrap{max-width:var(--max);margin:auto;padding:28px 18px 64px}
     header{padding:34px 0 22px;border-bottom:1px solid var(--line);margin-bottom:26px} h1{font-size:clamp(2rem,5vw,4rem);line-height:1.03;margin:0 0 14px;letter-spacing:-.04em} h2{font-size:clamp(1.45rem,3vw,2.1rem);margin:42px 0 14px;letter-spacing:-.02em} h3{font-size:1.15rem;margin:24px 0 8px} p{margin:0 0 14px}.lede{font-size:1.15rem;color:#d8e2ff;max-width:880px}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.pill{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:#dce7ff;font-size:.9rem}
     .grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:820px){.g2,.g3{grid-template-columns:1fr}}
-    .card{background:rgba(18,26,49,.88);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.18)}.card h3{margin-top:0}.card strong{color:white}.muted{color:var(--muted)}.callout{border-left:4px solid var(--accent);background:rgba(125,211,252,.08);padding:14px 16px;border-radius:12px;margin:16px 0}.warn{border-left-color:var(--warn);background:rgba(253,230,138,.09)}.good{border-left-color:var(--good);background:rgba(134,239,172,.08)}
+    .card{background:rgba(18,26,49,.88);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.18)}.card h3{margin-top:0}.card strong{color:white}.muted{color:var(--muted)}.callout{border-left:4px solid var(--accent);background:rgba(125,211,252,.08);padding:14px 16px;border-radius:12px;margin:16px 0}.choice{border-left-color:var(--good);background:rgba(134,239,172,.08)}.why{color:#d8e2ff}.warn{border-left-color:var(--warn);background:rgba(253,230,138,.09)}.good{border-left-color:var(--good);background:rgba(134,239,172,.08)}
     ul,ol{margin:8px 0 16px;padding-left:22px} li{margin:5px 0} table{width:100%;border-collapse:collapse;margin:14px 0 24px;background:rgba(18,26,49,.8);border-radius:14px;overflow:hidden} th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top} th{background:#1b2540;text-align:left;color:#fff}.score{font-weight:700;color:var(--good)}.maybe{color:var(--warn);font-weight:700}.avoid{color:var(--bad);font-weight:700}.small{font-size:.92rem}.toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.toc a{background:#13203a;border:1px solid var(--line);padding:8px 10px;border-radius:999px}.tag{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#9fb7ff}.stack{border-top:3px solid var(--accent)} code{background:#17213d;border:1px solid var(--line);padding:.12em .35em;border-radius:6px} footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted)}
   </style>
 </head>
@@ -26,7 +26,7 @@
 
 <section id="summary">
 <h2>Executive summary</h2>
-<div class="callout good"><strong>Default recommendation:</strong> build a TypeScript-first product platform with <strong>Postgres + Drizzle</strong>, <strong>Better Auth or managed Clerk/Zitadel</strong>, <strong>Hono/Fastify service boundaries</strong>, <strong>Inngest/Trigger.dev first, Temporal when workflows become business-critical</strong>, <strong>OpenTelemetry + Sentry + PostHog</strong>, and deploy initially on <strong>Cloudflare/Vercel/Railway/Render</strong> depending on runtime needs. Keep the first version boring in architecture, not boring in tooling.</div>
+<div class="callout good"><strong>Executive recommendation:</strong> use the <strong>Lean TypeScript Product Stack</strong> as the default: <strong>TanStack Start</strong> for a React-first app (choose <strong>SvelteKit</strong> if the team prefers Svelte/simple components), <strong>Hono</strong> for edge/API boundaries, <strong>Fastify</strong> only where long-running Node services are needed, <strong>Postgres on Neon or Supabase + Drizzle</strong>, <strong>Better Auth</strong> when auth should live in the codebase or <strong>Clerk</strong> when managed auth UX is worth paying for, <strong>Inngest</strong> for jobs/workflows, <strong>Upstash Redis/QStash</strong> for cache and lightweight delivery, <strong>OpenTelemetry + Sentry + PostHog</strong>, and <strong>Cloudflare Workers plus Railway/Render/Fly</strong> for deployment. <span class="why">Why: this combination is coherent, TypeScript-native, source-backed by strong docs, operationally light, easy to reason about, and gives clean upgrade paths to Temporal, Dragonfly/Valkey, Pulumi/SST, or AWS only when the product proves those needs.</span></div>
 <div class="grid g3">
   <div class="card"><h3>Best all-around app path</h3><p><strong>TanStack Start or SvelteKit</strong> for the app shell, <strong>Hono</strong> for small APIs, <strong>Drizzle + Neon/Supabase Postgres</strong>, <strong>Better Auth</strong>, <strong>Inngest</strong>, <strong>Upstash Redis/QStash</strong>, <strong>Sentry + OTel</strong>.</p><p class="muted">Why: high type-safety, low ceremony, modern docs, easier code for AI-assisted maintenance.</p></div>
   <div class="card"><h3>Best durable workflow path</h3><p><strong>Next.js or TanStack Start</strong>, <strong>Fastify/Hono services</strong>, <strong>Temporal</strong>, <strong>Postgres</strong>, <strong>Dragonfly/Valkey</strong>, deploy on <strong>Fly.io, Render, or AWS via SST/Pulumi</strong>.</p><p class="muted">Why: explicit service/runtime control and strong reliability for payments, onboarding, and long-running jobs.</p></div>
@@ -59,6 +59,7 @@
 <section id="areas">
 <h2>Area-by-area recommendations</h2>
 <h3>Frontend/app frameworks</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> <strong>TanStack Start</strong> for a React-first product app; <strong>SvelteKit</strong> if you value simpler component code over the React ecosystem; <strong>Astro</strong> only for marketing/content surfaces. <span class="why">Why: TanStack Start gives typed routing/data primitives and deploy-anywhere Vite ergonomics; SvelteKit keeps the UI layer unusually small and performant; Astro avoids shipping app-framework JS for content pages.</span></div>
 <table><thead><tr><th>Pick</th><th>Best fit</th><th>Why it belongs on the shortlist</th><th>Cautions</th></tr></thead><tbody>
 <tr><td><strong>TanStack Start</strong></td><td>React apps where type-safe routing/data APIs matter.</td><td>Full-document SSR, streaming, server functions/RPC, Vite, deploy-anywhere model, and TanStack Router’s type-safety.</td><td>Still newer/RC relative to mature frameworks; validate ecosystem gaps before committing.</td></tr>
 <tr><td><strong>SvelteKit</strong></td><td>Performance-focused apps with simple component code.</td><td>Compiler-driven UI, SSR/CSR/prerender modes, image optimization, service workers, strong docs.</td><td>Smaller ecosystem than React; hiring/library choices may be narrower.</td></tr>
@@ -68,6 +69,7 @@
 </tbody></table>
 
 <h3>Backend/API frameworks and contracts</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> <strong>Hono</strong> as the default API/gateway layer, with <strong>Fastify</strong> for heavier Node services. Use <strong>tRPC</strong> only for same-repo internal APIs. <span class="why">Why: Hono’s Web Standards model works across edge and Node runtimes with little ceremony; Fastify adds mature Node plugin/server ergonomics without falling back to Express-era defaults.</span></div>
 <table><thead><tr><th>Pick</th><th>Best fit</th><th>Notes</th></tr></thead><tbody>
 <tr><td><strong>Hono</strong></td><td>Edge APIs, small services, middleware, API gateway.</td><td>Small, Web Standards-based, zero dependencies, multi-runtime across Cloudflare, Fastly, Deno, Bun, Vercel, Lambda, Node.</td></tr>
 <tr><td><strong>Fastify</strong></td><td>Production Node services needing plugins, throughput, LTS posture.</td><td>Strong reference docs/guides and mature server ergonomics without Express-era baggage.</td></tr>
@@ -77,6 +79,7 @@
 </tbody></table>
 
 <h3>Data layer: database, ORM, migrations</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> <strong>Postgres + Drizzle</strong>, hosted on <strong>Neon</strong> for serverless branching/preview workflows or <strong>Supabase</strong> if you want bundled storage/auth/realtime. <span class="why">Why: Postgres remains the best center of gravity for product data; Drizzle keeps SQL visible and type-safe, which makes schema evolution and AI-assisted maintenance easier than heavier abstraction.</span></div>
 <table><thead><tr><th>Pick</th><th>Best fit</th><th>Why</th><th>Caution</th></tr></thead><tbody>
 <tr><td><strong>Postgres</strong></td><td>Default relational database.</td><td>Best general-purpose center for product data, analytics extensions, JSON, search, transactions.</td><td>Needs schema discipline and indexing habits.</td></tr>
 <tr><td><strong>Neon</strong></td><td>Serverless Postgres, branching workflows, preview DBs.</td><td>Autoscaling, branching, instant restore, framework/ORM guides.</td><td>Understand pooling/serverless connection behavior.</td></tr>
@@ -86,6 +89,7 @@
 </tbody></table>
 
 <h3>Authentication and authorization</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> <strong>Better Auth</strong> if auth should be owned in-app; <strong>Clerk</strong> if speed, hosted UI, organizations, and managed account flows matter more. Use <strong>Zitadel</strong> for serious B2B/enterprise identity. <span class="why">Why: auth is security-sensitive; these choices minimize custom glue while preserving a clear ownership model.</span></div>
 <table><thead><tr><th>Pick</th><th>Use when</th><th>Reason</th></tr></thead><tbody>
 <tr><td><strong>Better Auth</strong></td><td>You want auth in your codebase.</td><td>Framework-agnostic TS auth with plugins for 2FA, passkeys, multi-tenancy, multi-session, SSO/IDP; strong 2026 trajectory.</td></tr>
 <tr><td><strong>Clerk</strong></td><td>You want managed UX fast.</td><td>Prebuilt UI components, user management, organizations, SDKs; good for shipping quickly.</td></tr>
@@ -95,6 +99,7 @@
 </tbody></table>
 
 <h3>Queues, jobs, workflows, scheduling</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> start with <strong>Inngest</strong>; evaluate <strong>Trigger.dev</strong> for AI/long-running task DX; move critical business processes to <strong>Temporal</strong> only when durability/replay correctness is essential. <span class="why">Why: most teams need retries, steps, scheduling, and visibility before they need a full workflow platform.</span></div>
 <table><thead><tr><th>Pick</th><th>Best fit</th><th>Decision rule</th></tr></thead><tbody>
 <tr><td><strong>Inngest</strong></td><td>Event-driven durable functions without managing queues/state.</td><td>Start here for most TS apps: steps, retries, concurrency, throttling, scheduling, observability handled.</td></tr>
 <tr><td><strong>Trigger.dev</strong></td><td>Developer-friendly background tasks and AI/long-running jobs.</td><td>Great DX and examples; compare pricing and self-host posture for production.</td></tr>
@@ -104,6 +109,7 @@
 </tbody></table>
 
 <h3>Caches and ephemeral state</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> <strong>Upstash Redis</strong> for low-ops cache/rate-limit/session needs; <strong>Dragonfly</strong> or <strong>Valkey</strong> when you self-host or need higher throughput/control. <span class="why">Why: cache infrastructure should stay boring until it is a proven bottleneck; Upstash is simple, while Dragonfly/Valkey preserve Redis-compatible escape hatches.</span></div>
 <table><thead><tr><th>Pick</th><th>Best fit</th><th>Notes</th></tr></thead><tbody>
 <tr><td><strong>Upstash Redis</strong></td><td>Managed/serverless Redis-compatible cache.</td><td>Good global low-ops default for rate limits, sessions, queues, small hot data.</td></tr>
 <tr><td><strong>Dragonfly</strong></td><td>High-throughput Redis-compatible in-memory datastore.</td><td>Claims large single-instance performance gains; strong if self-hosting/cache intensity matters.</td></tr>
@@ -112,6 +118,7 @@
 </tbody></table>
 
 <h3>UI, styling, forms, client state</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> React path: <strong>shadcn/ui + Radix + Tailwind + TanStack Query/Form + Zod or Valibot</strong>. Svelte path: native SvelteKit forms/loaders plus a headless component library. <span class="why">Why: this keeps the UI inspectable, accessible, themeable, and mostly generated/composed from source instead of hidden behind opaque component kits.</span></div>
 <table><thead><tr><th>Area</th><th>Shortlist</th><th>Recommendation</th></tr></thead><tbody>
 <tr><td>Component system</td><td>shadcn/ui, Radix Primitives, Ark UI, Tamagui</td><td>React web: shadcn/ui + Radix. Cross-platform: Tamagui. Multi-framework/headless: Ark UI.</td></tr>
 <tr><td>Styling</td><td>Tailwind CSS, Panda CSS, vanilla-extract</td><td>Tailwind remains the pragmatic default: fast, flexible, zero-runtime, Vite integration.</td></tr>
@@ -120,6 +127,7 @@
 </tbody></table>
 
 <h3>Observability, product analytics, logging</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> instrument with <strong>OpenTelemetry</strong>, start product/app monitoring with <strong>Sentry</strong>, and use <strong>PostHog</strong> for product analytics/feature flags. Add <strong>Grafana</strong> or <strong>Honeycomb</strong> when infra/distributed debugging depth demands it. <span class="why">Why: OTel avoids vendor lock-in; Sentry gives immediate developer feedback; PostHog answers product behavior questions that traces cannot.</span></div>
 <table><thead><tr><th>Pick</th><th>Role</th><th>Why</th></tr></thead><tbody>
 <tr><td><strong>OpenTelemetry</strong></td><td>Instrumentation standard.</td><td>Vendor-neutral traces, metrics, logs; broad vendor/library adoption.</td></tr>
 <tr><td><strong>Sentry</strong></td><td>Developer-first errors/perf/replays/profiling/crons/logs.</td><td>Best single starting point for app-level issue discovery.</td></tr>
@@ -129,6 +137,7 @@
 </tbody></table>
 
 <h3>CI/CD, monorepo, builds, IaC</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> <strong>GitHub Actions</strong> + deploy previews first, <strong>pnpm/Bun workspaces</strong> before heavier monorepo tooling, and <strong>Pulumi or SST</strong> only once infra is no longer just platform configuration. <span class="why">Why: CI and IaC should remove operational ambiguity, not create a platform project before the product needs one.</span></div>
 <table><thead><tr><th>Area</th><th>Shortlist</th><th>Recommendation</th></tr></thead><tbody>
 <tr><td>CI/CD</td><td>GitHub Actions, Depot CI, platform deploy previews</td><td>Use GitHub Actions first; add Depot for faster containers/runners when CI becomes a bottleneck.</td></tr>
 <tr><td>Monorepo/build</td><td>Turborepo, Nx, pnpm/Bun workspaces</td><td>Start with pnpm/Bun workspaces + Turborepo only when caching/pipelines help.</td></tr>
@@ -137,6 +146,7 @@
 </tbody></table>
 
 <h3>Storage, search, realtime, payments, email</h3>
+<div class="callout choice"><strong>Recommended choice:</strong> <strong>Cloudflare R2</strong> for object storage if using Cloudflare, <strong>Postgres full-text/pgvector</strong> before a dedicated search service, <strong>Ably or Supabase Realtime</strong> before custom WebSockets, <strong>Stripe</strong> for SaaS billing, and <strong>Resend/Postmark</strong> for transactional email. <span class="why">Why: these choices cover common product needs with managed, documented primitives while delaying specialized systems until usage proves them.</span></div>
 <table><thead><tr><th>Area</th><th>3–5 good choices</th><th>Default advice</th></tr></thead><tbody>
 <tr><td>Object storage/CDN</td><td>Cloudflare R2, S3, Supabase Storage, Tigris</td><td>Use R2 if already on Cloudflare; S3 for AWS-heavy orgs.</td></tr>
 <tr><td>Search</td><td>Meilisearch, Typesense, Postgres full-text/pgvector, Algolia</td><td>Start with Postgres for simple search; Meilisearch/Typesense for self-hosted UX; Algolia for managed premium search.</td></tr>
@@ -148,6 +158,7 @@
 
 <section id="deploy">
 <h2>Deployment and hosting choices</h2>
+<div class="callout choice"><strong>Recommended choice:</strong> use <strong>Cloudflare Workers</strong> for edge APIs/static/content-adjacent services plus <strong>Railway or Render</strong> for simple containers/workers; choose <strong>Fly.io</strong> when regions, WebSockets, or custom runtime control matter; choose <strong>Vercel</strong> primarily for a Next.js-heavy product. <span class="why">Why: this minimizes cloud-console complexity and cost surprises while keeping clear paths to containers and AWS/Pulumi/SST later.</span></div>
 <table><thead><tr><th>Platform</th><th>Strength</th><th>Pricing/complexity signal</th><th>Best fit</th></tr></thead><tbody>
 <tr><td><strong>Cloudflare Workers</strong></td><td>Global edge, low ops, no infra, bandwidth-friendly.</td><td>Free plan; paid minimum around $5/month; no additional data transfer charges in Workers pricing docs.</td><td>Hono APIs, edge rendering, KV/R2/Durable Object apps.</td></tr>
 <tr><td><strong>Vercel</strong></td><td>Best Next.js path, previews, CDN, integrated marketplace.</td><td>Hobby free; Pro around $20/user/month plus usage credits/overages.</td><td>Next.js teams, frontend-heavy products, preview-heavy workflow.</td></tr>
@@ -162,7 +173,7 @@
 <section id="roadmap">
 <h2>Recommended adoption roadmap</h2>
 <ol>
-<li><strong>Prototype:</strong> one monorepo, one app framework, Postgres, Drizzle, Better Auth/Clerk, Sentry, GitHub Actions, platform previews.</li>
+<li><strong>Prototype:</strong> one monorepo, TanStack Start or SvelteKit, Hono API routes, Neon/Supabase Postgres, Drizzle, Better Auth/Clerk, Sentry, GitHub Actions, platform previews.</li>
 <li><strong>First production:</strong> add migrations discipline, rate limits, background jobs via Inngest/Trigger/QStash, structured logs, backups, environment isolation, incident checklist.</li>
 <li><strong>Scale-up:</strong> introduce service boundaries only where needed; add OTel tracing, queue/workflow SLAs, cache policy, cost alerts, load tests.</li>
 <li><strong>Reliability hardening:</strong> Temporal for critical business workflows, IaC for all infra, restore drills, SLOs, deploy rollback drills, security review.</li>
