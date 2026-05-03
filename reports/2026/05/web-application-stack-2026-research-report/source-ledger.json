@@ -1,0 +1,352 @@
+[
+  {
+    "url": "https://tanstack.com/start/latest",
+    "title": "TanStack Start docs",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "RC full-stack framework powered by TanStack Router; SSR, streaming, server functions/RPCs; deploy anywhere JS runs; client-side-first DX."
+    ],
+    "caveats": [
+      "RC/newer maturity risk."
+    ]
+  },
+  {
+    "url": "https://svelte.dev/docs/kit/introduction",
+    "title": "SvelteKit introduction",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Robust performant web apps; routing, SSR/CSR/prerendering, image optimization, Vite HMR."
+    ],
+    "caveats": [
+      "Requires buying into Svelte ecosystem."
+    ]
+  },
+  {
+    "url": "https://2025.stateofjs.com/en-US/libraries/meta-frameworks/",
+    "title": "State of JS 2025 Meta-frameworks",
+    "type": "survey",
+    "date": "2025",
+    "credibility": "medium",
+    "relevance": "medium",
+    "claims": [
+      "Next.js power comes with learning-curve/DX downsides; SvelteKit has strong satisfaction signal."
+    ],
+    "caveats": [
+      "Survey sample bias; popularity not decision criterion."
+    ]
+  },
+  {
+    "url": "https://hono.dev/",
+    "title": "Hono docs",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Small, simple, ultrafast web-standard framework; works on Workers, Deno, Bun, Lambda, Vercel, Netlify, Node."
+    ],
+    "caveats": [
+      "Minimal core means choosing separate validation/openapi patterns."
+    ]
+  },
+  {
+    "url": "https://fastify.dev/",
+    "title": "Fastify docs",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "Mature Node web framework option for long-running services."
+    ],
+    "caveats": [
+      "Less edge-native than Hono."
+    ]
+  },
+  {
+    "url": "https://orm.drizzle.team/",
+    "title": "Drizzle ORM site",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "TypeScript ORM with active releases, migrations, RLS support, Neon/Supabase imports."
+    ],
+    "caveats": [
+      "Still below 1.0 in parts; migration edge cases exist."
+    ]
+  },
+  {
+    "url": "https://www.prisma.io/docs",
+    "title": "Prisma docs",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "High-DX ORM with mature ecosystem."
+    ],
+    "caveats": [
+      "More abstraction and runtime/client weight than Drizzle."
+    ]
+  },
+  {
+    "url": "https://better-auth.com/",
+    "title": "Better Auth",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "medium",
+    "relevance": "high",
+    "claims": [
+      "Modern TypeScript authentication candidate."
+    ],
+    "caveats": [
+      "You own more auth/security responsibility than with hosted IdP."
+    ]
+  },
+  {
+    "url": "https://clerk.com/pricing",
+    "title": "Clerk pricing/docs",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Hosted auth accelerates teams but MAU/add-on pricing and lock-in matter."
+    ],
+    "caveats": [
+      "Cost can grow with users/features."
+    ]
+  },
+  {
+    "url": "https://www.inngest.com/docs",
+    "title": "Inngest documentation",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Event-driven durable execution; TypeScript/Python/Go; handles queues, state, scaling, throttling, observability."
+    ],
+    "caveats": [
+      "Managed service lock-in; self-hosting posture must be checked per workload."
+    ]
+  },
+  {
+    "url": "https://trigger.dev/docs",
+    "title": "Trigger.dev docs",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Open-source background jobs/workflows in async code; retries, monitoring, realtime API; cloud or self-host."
+    ],
+    "caveats": [
+      "More worker/container oriented; evaluate cloud limits and self-host ops."
+    ]
+  },
+  {
+    "url": "https://developers.cloudflare.com/workers/platform/pricing/",
+    "title": "Cloudflare Workers pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Paid Workers minimum $5/month; 10M requests + 30M CPU ms included; no egress charge for Workers; examples show low dynamic costs."
+    ],
+    "caveats": [
+      "CPU/runtime/API limits; platform lock-in across KV/Durable Objects/R2/Queues."
+    ]
+  },
+  {
+    "url": "https://railway.com/pricing",
+    "title": "Railway pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Usage-based compute; Hobby $5 minimum credits, Pro $20; replicas, logs, cron, private networking, databases/storage."
+    ],
+    "caveats": [
+      "Egress charged; observability/log retention plan-bound."
+    ]
+  },
+  {
+    "url": "https://fly.io/docs/about/pricing/",
+    "title": "Fly.io resource pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "VM machine pricing by CPU/RAM; global regions; volumes and Postgres billed separately."
+    ],
+    "caveats": [
+      "Operationally closer to infra than PaaS; storage cleanup can surprise bills."
+    ]
+  },
+  {
+    "url": "https://neon.com/pricing",
+    "title": "Neon pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Serverless Postgres; pay-as-you-go; scale-to-zero; branching; Launch compute $0.106/CU-hour, storage $0.35/GB-month."
+    ],
+    "caveats": [
+      "Cold resume/connection behavior needs load testing; monitoring retention limited by plan."
+    ]
+  },
+  {
+    "url": "https://supabase.com/pricing",
+    "title": "Supabase pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Postgres-backed app platform with auth/storage/realtime/edge functions."
+    ],
+    "caveats": [
+      "Convenience can couple app to platform-specific services."
+    ]
+  },
+  {
+    "url": "https://upstash.com/pricing",
+    "title": "Upstash pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "Serverless Redis/Vector/QStash candidate for low-ops cache/queue primitives."
+    ],
+    "caveats": [
+      "Per-request/serverless model not ideal for hot high-throughput workloads."
+    ]
+  },
+  {
+    "url": "https://opentelemetry.io/docs/languages/js/",
+    "title": "OpenTelemetry JavaScript docs",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "JS traces and metrics stable; logs development; browser instrumentation experimental."
+    ],
+    "caveats": [
+      "Use Sentry/PostHog/vendor SDKs for product-level UX until browser OTel matures."
+    ]
+  },
+  {
+    "url": "https://sentry.io/pricing/",
+    "title": "Sentry pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Developer free; Team $26/mo; Business $80/mo at access date."
+    ],
+    "caveats": [
+      "Event volumes/session replay can drive cost."
+    ]
+  },
+  {
+    "url": "https://posthog.com/pricing",
+    "title": "PostHog pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "high",
+    "claims": [
+      "Generous free tiers: 1M analytics events, 5K replay recordings, 1M feature flag requests, 100K exceptions."
+    ],
+    "caveats": [
+      "Analytics volume and retention drive spend."
+    ]
+  },
+  {
+    "url": "https://ui.shadcn.com/docs",
+    "title": "shadcn/ui docs",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "Not a component library; distributes editable component code; composition and AI-ready/open-code model."
+    ],
+    "caveats": [
+      "You own maintenance of copied components."
+    ]
+  },
+  {
+    "url": "https://tailwindcss.com/docs/installation/using-vite",
+    "title": "Tailwind CSS Vite installation",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "Zero-runtime CSS generated from scanned source; Vite plugin is seamless for SvelteKit/React Router/Nuxt/Solid."
+    ],
+    "caveats": [
+      "Utility-first style may not suit all teams."
+    ]
+  },
+  {
+    "url": "https://docs.stripe.com",
+    "title": "Stripe documentation",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "Broad docs for payments, subscriptions, usage-based billing, customer portal, Checkout/Elements."
+    ],
+    "caveats": [
+      "Complex revenue models still require careful webhook/accounting design."
+    ]
+  },
+  {
+    "url": "https://resend.com/pricing",
+    "title": "Resend pricing",
+    "type": "official pricing",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "Free 3,000 transactional emails/month; Pro $20 for 50k; React Email, SMTP/API/webhooks included."
+    ],
+    "caveats": [
+      "Marketing email contacts priced separately."
+    ]
+  },
+  {
+    "url": "https://www.meilisearch.com/docs/getting_started/overview.md",
+    "title": "Meilisearch overview",
+    "type": "official docs",
+    "date": "accessed 2026-05-03",
+    "credibility": "high",
+    "relevance": "medium",
+    "claims": [
+      "Single-binary REST API search; typo tolerant, semantic/RAG claims, under-50ms claim from vendor."
+    ],
+    "caveats": [
+      "Vendor performance claim needs workload-specific verification."
+    ]
+  }
+]
