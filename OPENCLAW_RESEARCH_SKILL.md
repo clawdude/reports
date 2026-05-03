@@ -82,7 +82,9 @@ Actively look for negative evidence and disconfirming sources. Do not just colle
 
 ### 4. Deploy parallel subagents after confirmation
 
-Spawn isolated subagents with `sessions_spawn` for independent tracks. Use narrow prompts so each subagent returns evidence, not prose filler.
+For normal/deep new reports, spawn isolated subagents with `sessions_spawn` for independent tracks. This is required unless the user explicitly asked for a fast scan or the task is a small revision to an existing report.
+
+Use narrow prompts so each subagent returns evidence, not prose filler.
 
 Recommended tracks:
 - **Primary sources**: official docs, specs, announcements, changelogs, pricing, security pages.
